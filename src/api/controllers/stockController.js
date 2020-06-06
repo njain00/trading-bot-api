@@ -1,5 +1,6 @@
 'use strict';
 var sql = require("mssql");
+var _ = require("lodash");
 
 exports.getStockWithUsers = function(request, response) {
     
@@ -8,7 +9,11 @@ exports.getStockWithUsers = function(request, response) {
         password: '',
         server: '',
         port: 0,
-        database: ''
+        database: '',
+        options: {
+            encrypt: false,
+            enableArithAbort: false
+        }
     }
 
     sql.connect(config).then(function() {
@@ -20,7 +25,28 @@ exports.getStockWithUsers = function(request, response) {
                        ON us.StockID = sm.StockID
                        INNER JOIN [User] u (NOLOCK)
                        ON u.UserId = us.UserID`, function(error, recordset) {
-            response.json(recordset.recordsets);
+            
+            var stocksFromDb = recordset.recordsets[0];
+            var stockWithUsers = [];
+            _.forEach(stocksFromDb, function(stock) {
+
+                var indexValue = _.findIndex(stockWithUsers, {ticker : stock.Ticker});
+                var user = {};
+                user["firstName"] = stock.FirstName;
+                user["lastName"] = stock.LastName;
+                user["emailAddress"] = stock.EmailAddress;
+                if (indexValue != -1)
+                {
+                    stockWithUsers[indexValue]["users"].push(user);
+                }
+                else
+                {
+                    stockWithUsers.push({"ticker": stock.Ticker
+                                          ,"companyName": stock.CompanyName
+                                          ,"users": [user]});
+                }
+            });
+            response.json(stockWithUsers);
         });
     });
 }
