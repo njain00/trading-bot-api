@@ -1,15 +1,16 @@
 'use strict';
 var sql = require("mssql");
 var _ = require("lodash");
+require('dotenv/config');
 
 exports.getStockWithUsers = function(request, response) {
     
     var config = {
-        user: '',
-        password: '',
-        server: '',
-        port: 0,
-        database: '',
+        user: process.env.DB_USERNAME,
+        password: process.env.DB_PASSWORD,
+        server: process.env.DB_SERVER,
+        port: parseInt(process.env.DB_PORT, 10),
+        database: process.env.DB_DATABASE,
         options: {
             encrypt: false,
             enableArithAbort: false
