@@ -1,7 +1,7 @@
-module.exports = function(app) {
+module.exports = function(router) {
 
     var stockApiController = require('../controllers/stockController');
 
-    app.route('/stock/user')
+    router.route('/stock/user')
     .get(stockApiController.getStockWithUsers);
 }
