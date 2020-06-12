@@ -1,9 +1,12 @@
 'use strict';
-var stockRepository = require('../repository/stockRepository');
-var _ = require("lodash");
+// var stockRepository = require('../repository/stockRepository');
+// var _ = require("lodash");
 
-exports.getAllStockUsers = function() {
-    return stockRepository.getAllStockUsers().then(stocksFromDb => {
+import * as stockRepository from '../repository/stockRepository.mjs';
+import _ from 'lodash';
+
+export async function getAllStockUsers() {
+    var stocksFromDb = await stockRepository.getAllStockUsers();
         var stockWithUsers = [];
         _.forEach(stocksFromDb, function(stock) {
 
@@ -25,5 +28,4 @@ exports.getAllStockUsers = function() {
             }
         });
         return stockWithUsers;
-    })
 }

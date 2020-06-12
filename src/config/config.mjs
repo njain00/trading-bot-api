@@ -1,6 +1,9 @@
-require('dotenv').config();
+//require('dotenv').config();
+import dotenv from 'dotenv';
 
-var connectionString = {
+dotenv.config();
+
+export const connectionString = {
     user: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     server: process.env.DB_SERVER,
@@ -11,5 +14,3 @@ var connectionString = {
         enableArithAbort: false
     }
 }
-
-module.exports = { connectionString };
