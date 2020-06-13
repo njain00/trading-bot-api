@@ -1,3 +1,4 @@
-import startup from './config/server.mjs';
+import Server from './config/server.mjs';
 
-startup();
+var server = new Server();
+server.startup();

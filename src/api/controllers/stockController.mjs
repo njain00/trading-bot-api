@@ -1,8 +1,11 @@
 'use strict';
-import * as stockService from '../../service/stockService.mjs'
+import StockService from '../../service/stockService.mjs'
 
-export async function getStockWithUsers(request, response) {
+export default class StockController {
 
-    var stockWithUsers = await stockService.getAllStockUsers()
-    response.json(stockWithUsers);
+    async getStockWithUsers(request, response) {
+        var stockService = new StockService();
+        var stockWithUsers = await stockService.getAllStockUsers()
+        response.json(stockWithUsers);
+    }
 }

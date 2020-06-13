@@ -1,13 +1,11 @@
-// module.exports = function(router) {
+import StockApiController from '../controllers/stockController.mjs';
 
-//     var stockApiController = require('../controllers/stockController');
+export default class StockRoute {
 
-//     router.route('/stock/user')
-//     .get(stockApiController.getStockWithUsers);
-// }
-import * as stockApiController from '../controllers/stockController.mjs';
+    setStockRoutes(router) {
+        var stockApiController = new StockApiController();
+        router.route('/stock/user')
+        .get((request, response) => stockApiController.getStockWithUsers(request, response));
+    }
 
-export function testFunction(router) {
-    router.route('/stock/user')
-    .get((request, response) => stockApiController.getStockWithUsers(request, response));
 }
