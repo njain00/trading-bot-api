@@ -1,7 +1,14 @@
 'use strict';
 import StockService from '../../service/stockService.mjs'
+import Pino from 'pino';
 
 export default class StockController {
+
+    constructor()
+    {
+        var destination = Pino.destination('C:\\logfiles\\trading-bot-api-log.json')
+        this.logger = Pino({ level: process.env.LOG_LEVEL || 'info'}, destination);
+    }
 
     async getStockWithUsers(request, response) {
         var stockService = new StockService();
@@ -12,7 +19,7 @@ export default class StockController {
         catch (ex)
         {
             // need to add logging
-            console.log(ex.message);
+            this.logger.error(ex.message);
             response.status(500).send({ error: 'Internal server error' });
         }
 
