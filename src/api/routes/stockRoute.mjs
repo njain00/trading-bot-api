@@ -4,7 +4,7 @@ export default class StockRoute {
 
     setStockRoutes(router) {
         var stockApiController = new StockApiController();
-        router.route('/stock/user')
+        router.route('/stocks/users')
         .get((request, response) => stockApiController.getStockWithUsers(request, response));
     }
 

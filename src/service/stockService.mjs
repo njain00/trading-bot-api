@@ -10,22 +10,29 @@ export default class StockService {
         var stocksFromDb = await stockRepository.getAllStockUsers();
             var stockWithUsers = [];
             _.forEach(stocksFromDb, function(stock) {
-
-                // JSON Output: [ticker: '', companyName: '', users: []]
-                var indexValue = _.findIndex(stockWithUsers, {ticker : stock.Ticker});
-                var user = {};
-                user["firstName"] = stock.FirstName;
-                user["lastName"] = stock.LastName;
-                user["emailAddress"] = stock.EmailAddress;
-                if (indexValue != -1)
+                try
                 {
-                    stockWithUsers[indexValue]["users"].push(user);
+                    // JSON Output: [ticker: '', companyName: '', users: []]
+                    var indexValue = _.findIndex(stockWithUsers, {ticker : stock.Ticker});
+                    var user = {};
+                    user["firstName"] = stock.FirstName;
+                    user["lastName"] = stock.LastName;
+                    user["emailAddress"] = stock.EmailAddress;
+                    if (indexValue != -1)
+                    {
+                        stockWithUsers[indexValue]["users"].push(user);
+                    }
+                    else
+                    {
+                        stockWithUsers.push({"ticker": stock.Ticker
+                                            ,"companyName": stock.CompanyName
+                                            ,"users": [user]});
+                    }
                 }
-                else
+                catch (ex)
                 {
-                    stockWithUsers.push({"ticker": stock.Ticker
-                                        ,"companyName": stock.CompanyName
-                                        ,"users": [user]});
+                    console.error("Error on the following stock: \n", stock);
+                    throw ex;
                 }
             });
             return stockWithUsers;
