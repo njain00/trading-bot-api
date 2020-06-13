@@ -1,0 +1,26 @@
+{
+  "name": "trading-bot-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./app.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NJain0001/trading-bot-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NJain0001/trading-bot-api/issues"
+  },
+  "homepage": "https://github.com/NJain0001/trading-bot-api#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "lodash": "^4.17.15",
+    "mssql": "^6.2.0"
+  }
+}
