@@ -1,5 +1,5 @@
-import StockApiController from '../controllers/stockController.mjs';
-import { getLogger } from '../../config/pinoLogger.mjs'
+import StockApiController from '../controllers/stockController.js';
+import { getLogger } from '../../config/pinoLogger.js'
 
 export default class StockRoute {
 

@@ -1,5 +1,5 @@
 'use strict';
-import StockService from '../../service/stockService.mjs'
+import StockService from '../../service/stockService.js'
 import Pino from 'pino';
 
 export default class StockController {

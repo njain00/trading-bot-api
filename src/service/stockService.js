@@ -1,6 +1,6 @@
 'use strict';
 
-import StockRepository from '../repository/stockRepository.mjs';
+import StockRepository from '../repository/stockRepository.js';
 import _ from 'lodash';
 import Pino from 'pino';
 

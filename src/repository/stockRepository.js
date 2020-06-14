@@ -1,5 +1,5 @@
 import sql from "mssql";
-import { connectionString } from '../config/config.mjs';
+import { connectionString } from '../config/config.js';
 
 export default class StockRepository {
 

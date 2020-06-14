@@ -1,7 +1,7 @@
 import express from 'express';
 var router = express.Router();
 var app = express();
-import StockRoute from "../api/routes/stockRoute.mjs";
+import StockRoute from "../api/routes/stockRoute.js";
     
 export default class Server {
 
