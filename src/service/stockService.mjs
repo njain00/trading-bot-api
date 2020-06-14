@@ -6,13 +6,9 @@ import Pino from 'pino';
 
 export default class StockService {
 
-    constructor()
+    constructor(logger)
     {
-        var destination = Pino.destination('C:\\logfiles\\trading-bot-api-log.json')
-        this.logger = Pino({ level: process.env.LOG_LEVEL || 'info', 
-                             sync: false,
-                             timestamp: Pino.stdTimeFunctions.isoTime }
-                          , destination);
+        this.logger = logger;
     }
 
     async getAllStockUsers() {
