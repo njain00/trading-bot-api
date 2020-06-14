@@ -7,7 +7,9 @@ export default class StockController {
     constructor()
     {
         var destination = Pino.destination('C:\\logfiles\\trading-bot-api-log.json')
-        this.logger = Pino({ level: process.env.LOG_LEVEL || 'info'}, destination);
+        this.logger = Pino({ level: process.env.LOG_LEVEL || 'info', 
+        sync: false,
+        timestamp: Pino.stdTimeFunctions.isoTime }, destination);
     }
 
     async getStockWithUsers(request, response) {
@@ -19,7 +21,7 @@ export default class StockController {
         catch (ex)
         {
             // need to add logging
-            this.logger.error(ex.message);
+            this.logger.error(ex);
             response.status(500).send({ error: 'Internal server error' });
         }
 
