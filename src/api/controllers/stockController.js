@@ -1,18 +1,16 @@
 'use strict';
-import StockService from '../../service/stockService.js'
-import Pino from 'pino';
 
 export default class StockController {
 
-    constructor(logger)
+    constructor({ logger, stockService })
     {
         this.logger = logger;
+        this.stockService = stockService;
     }
 
     async getStockWithUsers(request, response) {
-        var stockService = new StockService(this.logger);
         try {
-            var stockWithUsers = await stockService.getAllStockUsers()
+            var stockWithUsers = await this.stockService.getAllStockUsers()
             response.json(stockWithUsers);
         }
         catch (ex)

@@ -1,19 +1,18 @@
 'use strict';
 
-import StockRepository from '../repository/stockRepository.js';
 import _ from 'lodash';
-import Pino from 'pino';
+// import { container } from 'awilix';
 
 export default class StockService {
 
-    constructor(logger)
+    constructor({ logger, stockRepository })
     {
-        this.logger = logger;
+        this.logger = logger
+        this.stockRepository = stockRepository
     }
 
     async getAllStockUsers() {
-        var stockRepository = new StockRepository();
-        var stocksFromDb = await stockRepository.getAllStockUsers();
+        var stocksFromDb = await this.stockRepository.getAllStockUsers();
         var stockWithUsers = [];
             _.forEach(stocksFromDb, (stock) => {
                 try

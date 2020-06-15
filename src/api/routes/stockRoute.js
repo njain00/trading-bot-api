@@ -1,12 +1,15 @@
-import StockApiController from '../controllers/stockController.js';
-import { getLogger } from '../../config/pinoLogger.js'
+'use strict'
 
 export default class StockRoute {
 
+    constructor({ stockApiController }) {
+        this.stockApiController = stockApiController
+    }
+
     setStockRoutes(router) {
-        var stockApiController = new StockApiController(getLogger());
         router.route('/stocks/users')
-        .get((request, response) => stockApiController.getStockWithUsers(request, response));
+        .get((request, response) => 
+        this.stockApiController.getStockWithUsers(request, response));
     }
 
 }
