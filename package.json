@@ -5,7 +5,7 @@
   "description": "",
   "main": "./src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "nodemon dotenv/config ./src/app.js --experimental-modules"
   },
   "repository": {
@@ -25,5 +25,10 @@
     "lodash": "^4.17.15",
     "mssql": "^6.2.0",
     "pino": "^6.3.2"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.10.2",
+    "babel-jest": "^26.0.1",
+    "jest": "^26.0.1"
   }
 }

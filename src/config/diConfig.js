@@ -15,8 +15,6 @@ export default class diConfig {
 
         this.RegisterContainer(container);
 
-        //this.ResolveContainer(container);
-
         return container;
     }
 
@@ -29,13 +27,4 @@ export default class diConfig {
             stockRoute: awilix.asClass(StockRoute)
         })
     }
-
-    // ResolveContainer(container) {
-    //     container.resolve('stockRepository');
-    //     container.resolve('logger');
-    //     container.resolve('stockService');
-    //     container.resolve('stockApiController');
-    //     container.resolve('stockRoute');
-    // }
-
 }

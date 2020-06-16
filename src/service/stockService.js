@@ -14,33 +14,35 @@ export default class StockService {
     async getAllStockUsers() {
         var stocksFromDb = await this.stockRepository.getAllStockUsers();
         var stockWithUsers = [];
-            _.forEach(stocksFromDb, (stock) => {
-                try
+
+        _.forEach(stocksFromDb, (stock) => {
+            try
+            {
+                // JSON Output: [ticker: '', companyName: '', users: []]
+                var indexValue = _.findIndex(stockWithUsers, {ticker : stock.Ticker});
+                var user = {};
+                user["firstName"] = stock.FirstName;
+                user["lastName"] = stock.LastName;
+                user["emailAddress"] = stock.EmailAddress;
+                if (indexValue != -1)
                 {
-                    // JSON Output: [ticker: '', companyName: '', users: []]
-                    var indexValue = _.findIndex(stockWithUsers, {ticker : stock.Ticker});
-                    var user = {};
-                    user["firstName"] = stock.FirstName;
-                    user["lastName"] = stock.LastName;
-                    user["emailAddress"] = stock.EmailAddress;
-                    if (indexValue != -1)
-                    {
-                        stockWithUsers[indexValue]["users"].push(user);
-                    }
-                    else
-                    {
-                        stockWithUsers.push({"ticker": stock.Ticker
-                                            ,"companyName": stock.CompanyName
-                                            ,"users": [user]});
-                    }
+                    stockWithUsers[indexValue]["users"].push(user);
                 }
-                catch (ex)
+                else
                 {
-                    this.logger.error({stock: stock }, "Error on the following stock. Look for error message with same pid.");
-                    throw ex;
+                    stockWithUsers.push({"ticker": stock.Ticker
+                                        ,"companyName": stock.CompanyName
+                                        ,"users": [user]});
                 }
-            });
-            return stockWithUsers;
+            }
+            catch (ex)
+            {
+                this.logger.error({stock: stock }, "Error on the following stock. Look for error message with same pid.");
+                throw ex;
+            }
+        });
+
+        return stockWithUsers;
     }
     
 }
