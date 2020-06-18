@@ -1,16 +1,23 @@
 'use strict';
 
-import StockRepository from '../repository/stockRepository.mjs';
 import _ from 'lodash';
+// import { container } from 'awilix';
 
 export default class StockService {
 
-    async getAllStockUsers() {
-        var stockRepository = new StockRepository();
-        var stocksFromDb = await stockRepository.getAllStockUsers();
-            var stockWithUsers = [];
-            _.forEach(stocksFromDb, function(stock) {
+    constructor({ logger, stockRepository })
+    {
+        this.logger = logger
+        this.stockRepository = stockRepository
+    }
 
+    async getAllStockUsers() {
+        var stocksFromDb = await this.stockRepository.getAllStockUsers();
+        var stockWithUsers = [];
+
+        _.forEach(stocksFromDb, (stock) => {
+            try
+            {
                 // JSON Output: [ticker: '', companyName: '', users: []]
                 var indexValue = _.findIndex(stockWithUsers, {ticker : stock.Ticker});
                 var user = {};
@@ -27,8 +34,15 @@ export default class StockService {
                                         ,"companyName": stock.CompanyName
                                         ,"users": [user]});
                 }
-            });
-            return stockWithUsers;
+            }
+            catch (ex)
+            {
+                this.logger.error({stock: stock }, "Error on the following stock. Look for error message with same pid.");
+                throw ex;
+            }
+        });
+
+        return stockWithUsers;
     }
     
 }
