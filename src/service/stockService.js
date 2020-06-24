@@ -47,11 +47,9 @@ export default class StockService {
 
     async postStockAnalysisData(analysisData) {
         try {
-            var stockId = await this.stockRepository.getStockId(analysisData.ticker);
-            if (stockId == null) {
-                await this.stockRepository.postStockMetadata(analysisData);
-                var stockId = await this.stockRepository.getStockId(analysisData.ticker);
-                analysisData.stockId = stockId.StockId;
+            var ticker = await this.stockRepository.getStockTicker(analysisData.ticker)
+            if (undefined == ticker) {
+                await this.stockRepository.postStockMetadata(analysisData.ticker, analysisData.companyName);
             }
             await this.stockRepository.postCandlestickData(analysisData);
         } catch (ex) {
