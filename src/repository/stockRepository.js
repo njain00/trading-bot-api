@@ -1,5 +1,6 @@
 import sql from "mssql";
 import { connectionString } from '../config/config.js';
+import _ from 'lodash';
 
 export default class StockRepository {
 
@@ -16,5 +17,47 @@ export default class StockRepository {
             
         var stocksFromDb = recordset.recordsets[0];
         return stocksFromDb;
+    }
+
+    async postCandlestickData(analysisData) {
+        await sql.connect(connectionString);
+        var request = new sql.Request();
+
+        var table = new sql.Table("Candlestick");
+        table.columns.add('StockId', sql.Int, {nullable: false});
+        table.columns.add('CandlestickDateTime', sql.DateTime2, {nullable: false});
+        table.columns.add('HighPrice', sql.Numeric, {nullable: false});
+        table.columns.add('LowPrice', sql.Numeric, {nullable: false});
+        table.columns.add('OpenPrice', sql.Numeric, {nullable: false});
+        table.columns.add('ClosePrice', sql.Numeric, {nullable: false});
+
+        _.forEach(analysisData.candlesticks, (candlestick) => {
+            table.rows.add(analysisData.stockId, candlestick.dateTime, candlestick.highPrice, candlestick.lowPrice, candlestick.openPrice, candlestick.closePrice);
+        });
+
+        await request.bulk(table);
+    }
+
+    async postStockMetadata(stock) {
+        await sql.connect(connectionString);
+        var request = new sql.Request();
+
+        request.input('ticker', stock.ticker);
+        request.input('companyName', stock.companyName);
+        var insertStockMetadataQuery = 'INSERT INTO StockMetadata(Ticker, CompanyName) VALUES (@ticker, @companyName);'
+
+        await request.query(insertStockMetadataQuery);
+    }
+
+    async getStockId(ticker) {
+        await sql.connect(connectionString);
+        var request = new sql.Request();
+
+        request.input('ticker', ticker);
+        var getStockIdQuery = 'SELECT StockId FROM StockMetadata WHERE Ticker=@ticker;'
+
+        var recordset = await request.query(getStockIdQuery);
+
+        return recordset.recordset[0];
     }
 }

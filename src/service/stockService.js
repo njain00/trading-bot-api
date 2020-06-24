@@ -44,5 +44,20 @@ export default class StockService {
 
         return stockWithUsers;
     }
+
+    async postStockAnalysisData(analysisData) {
+        try {
+            var stockId = await this.stockRepository.getStockId(analysisData.ticker);
+            if (stockId == null) {
+                await this.stockRepository.postStockMetadata(analysisData);
+                var stockId = await this.stockRepository.getStockId(analysisData.ticker);
+                analysisData.stockId = stockId.StockId;
+            }
+            await this.stockRepository.postCandlestickData(analysisData);
+        } catch (ex) {
+            this.logger.error({ticker: analysisData.ticker}, 'Error when looking at the following ticker.');
+            throw ex;
+        }
+    }
     
 }

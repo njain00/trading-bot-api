@@ -20,4 +20,15 @@ export default class StockController {
         }
 
     }
+
+    async postStockAnalysisData(analysisData, response) {
+        try {
+            await this.stockService.postStockAnalysisData(analysisData);
+
+            response.send('The stock analysis data from Vantage has been posted to the database.');
+        } catch (ex) {
+            this.logger.error(ex);
+            response.status(500).send({ error: 'Internal server error' });
+        }
+    }
 }
