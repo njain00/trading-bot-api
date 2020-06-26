@@ -218,4 +218,24 @@ describe('postCandlestickData', () => {
         // Assert
         // TODO: Mock functions and measure how many times they have been as the verification
     });
+
+    test('should post candlestick data and stock metadata on a ticker that does not already exist in the database', async () => {
+        // Arrange
+        var stockRepository = {
+            getStockTicker: () => {
+                return undefined;
+            },
+            postStockMetadata: () => {},
+            postCandlestickData: () => {}
+        }
+        var logger = null;
+        var stockService = new StockService({ logger, stockRepository });
+        var stockData = { ticker:'MSFT' }
+
+        // Act
+        await stockService.postCandlestickData(stockData);
+
+        // Assert
+        // TODO: Mock functions and measure how many times they have been as the verification
+    });
 });
