@@ -44,12 +44,12 @@ export default class StockRepository {
         await request.bulk(table);
     }
 
-    async postStockMetadata(ticker, companyName) {
+    async postStockMetadata(stock) {
         await sql.connect(connectionString);
         var request = new sql.Request();
 
-        request.input('ticker', ticker);
-        request.input('companyName', companyName);
+        request.input('ticker', stock.ticker);
+        request.input('companyName', stock.companyName);
         var insertStockMetadataQuery = 'INSERT INTO StockMetadata(Ticker, CompanyName) VALUES (@ticker, @companyName);'
 
         await request.query(insertStockMetadataQuery);

@@ -49,7 +49,7 @@ export default class StockService {
         try {
             var ticker = await this.stockRepository.getStockTicker(stockData.Ticker)
             if (undefined == ticker) {
-                await this.stockRepository.postStockMetadata(stockData.Ticker, stockData.CompanyName);
+                await this.stockRepository.postStockMetadata(stockData);
             }
             await this.stockRepository.postCandlestickData(stockData);
         } catch (ex) {
