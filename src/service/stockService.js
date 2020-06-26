@@ -47,7 +47,7 @@ export default class StockService {
 
     async postCandlestickData(stockData) {
         try {
-            if (await this.stockRepository.isStockInStockAnalysis(stockData.Ticker)) {
+            if (!(await this.stockRepository.isStockInStockAnalysis(stockData.Ticker))) {
                 await this.stockRepository.postStockMetadata(stockData);
             }
             await this.stockRepository.postCandlestickData(stockData);

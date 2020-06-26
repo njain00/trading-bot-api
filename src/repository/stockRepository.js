@@ -48,8 +48,8 @@ export default class StockRepository {
         await sql.connect(connectionString);
         var request = new sql.Request();
 
-        request.input('ticker', stock.ticker);
-        request.input('companyName', stock.companyName);
+        request.input('ticker', stock.Ticker);
+        request.input('companyName', stock.CompanyName);
         var insertStockMetadataQuery = 'INSERT INTO StockMetadata(Ticker, CompanyName) VALUES (@ticker, @companyName);'
 
         await request.query(insertStockMetadataQuery);
@@ -64,7 +64,7 @@ export default class StockRepository {
 
         var recordset = await request.query(getStockIdQuery);
 
-        if (recordset.recordset[0]) {
+        if (recordset.recordset.length > 0) {
             return true;
         }
 
