@@ -52,7 +52,7 @@ export default class StockService {
             }
             await this.stockRepository.postCandlestickData(stockData);
         } catch (ex) {
-            this.logger.error({Ticker: stockData.Ticker}, 'Error when looking at the following ticker.');
+            this.logger.error({Ticker: stockData.Ticker}, ex);
             throw ex;
         }
     }
