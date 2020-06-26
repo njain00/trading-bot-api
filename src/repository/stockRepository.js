@@ -11,9 +11,9 @@ export default class StockRepository {
         var recordset = await request.query(`SELECT sm.Ticker, sm.CompanyName, u.FirstName, u.LastName, u.EmailAddress
                         FROM StockMetadata sm (NOLOCK)
                         INNER JOIN UserStock us (NOLOCK)
-                        ON us.StockID = sm.StockID
+                        ON us.Ticker = sm.Ticker
                         INNER JOIN [User] u (NOLOCK)
-                        ON u.UserId = us.UserID`);
+                        ON u.Username = us.Username`);
             
         var stocksFromDb = recordset.recordsets[0];
         return stocksFromDb;
