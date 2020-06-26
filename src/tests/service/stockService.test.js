@@ -35,12 +35,12 @@ describe('getAllStockUsers', () => {
         }
         var logger = null;
         var expectedStockWithUsers = [{
-            ticker: 'MSFT',
-            companyName: 'Microsoft Corporation',
-            users: [{
-                    firstName: 'Test',
-                    lastName: 'McTest',
-                    emailAddress: 'test@tester.com'
+            Ticker: 'MSFT',
+            CompanyName: 'Microsoft Corporation',
+            Users: [{
+                    FirstName: 'Test',
+                    LastName: 'McTest',
+                    EmailAddress: 'test@tester.com'
                 }]
         }];
 
@@ -75,17 +75,17 @@ describe('getAllStockUsers', () => {
         }
         var logger = null;
         var expectedStockWithUsers = [{
-            ticker: 'MSFT',
-            companyName: 'Microsoft Corporation',
-            users: [{
-                        firstName: 'Test',
-                        lastName: 'McTest',
-                        emailAddress: 'test@tester.com'
+            Ticker: 'MSFT',
+            CompanyName: 'Microsoft Corporation',
+            Users: [{
+                        FirstName: 'Test',
+                        LastName: 'McTest',
+                        EmailAddress: 'test@tester.com'
                     },
                     {
-                        firstName: 'Nishant',
-                        lastName: 'Jain',
-                        emailAddress: 'nishant@jain.com'
+                        FirstName: 'Nishant',
+                        LastName: 'Jain',
+                        EmailAddress: 'nishant@jain.com'
                     }
             ]
         }];
@@ -121,21 +121,21 @@ describe('getAllStockUsers', () => {
         }
         var logger = null;
         var expectedStockWithUsers = [{
-            ticker: 'MSFT',
-            companyName: 'Microsoft Corporation',
-            users: [{
-                        firstName: 'Test',
-                        lastName: 'McTest',
-                        emailAddress: 'test@tester.com'
+            Ticker: 'MSFT',
+            CompanyName: 'Microsoft Corporation',
+            Users: [{
+                        FirstName: 'Test',
+                        LastName: 'McTest',
+                        EmailAddress: 'test@tester.com'
                     }]
         },
         {
-            ticker: 'AMZN',
-            companyName: 'Amazon',
-            users: [{
-                        firstName: 'Nishant',
-                        lastName: 'Jain',
-                        emailAddress: 'nishant@jain.com'
+            Ticker: 'AMZN',
+            CompanyName: 'Amazon',
+            Users: [{
+                        FirstName: 'Nishant',
+                        LastName: 'Jain',
+                        EmailAddress: 'nishant@jain.com'
                     }]
         }];
 
@@ -170,21 +170,21 @@ describe('getAllStockUsers', () => {
         }
         var logger = null;
         var expectedStockWithUsers = [{
-            ticker: 'MSFT',
-            companyName: 'Microsoft Corporation',
-            users: [{
-                        firstName: 'Test',
-                        lastName: 'McTest',
-                        emailAddress: 'test@tester.com'
+            Ticker: 'MSFT',
+            CompanyName: 'Microsoft Corporation',
+            Users: [{
+                        FirstName: 'Test',
+                        LastName: 'McTest',
+                        EmailAddress: 'test@tester.com'
                     }]
         },
         {
-            ticker: 'AMZN',
-            companyName: 'Amazon',
-            users: [{
-                        firstName: 'Test',
-                        lastName: 'McTest',
-                        emailAddress: 'test@tester.com'
+            Ticker: 'AMZN',
+            CompanyName: 'Amazon',
+            Users: [{
+                        FirstName: 'Test',
+                        LastName: 'McTest',
+                        EmailAddress: 'test@tester.com'
                     }]
         }];
 
