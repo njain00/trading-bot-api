@@ -32,7 +32,13 @@ export default class StockRepository {
         table.columns.add('ClosePrice', sql.Numeric, {nullable: false});
 
         _.forEach(stockData.Candlesticks, (candlestick) => {
-            table.rows.add(stockData.Ticker, candlestick.Timestamp, candlestick.HighPrice, candlestick.LowPrice, candlestick.OpenPrice, candlestick.ClosePrice);
+            table.rows.add(
+                stockData.Ticker,
+                candlestick.Timestamp,
+                candlestick.HighPrice,
+                candlestick.LowPrice,
+                candlestick.OpenPrice,
+                candlestick.ClosePrice);
         });
 
         await request.bulk(table);

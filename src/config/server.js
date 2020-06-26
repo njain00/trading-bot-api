@@ -18,7 +18,6 @@ export default class Server {
         
         app.use('/api', router);
         
-        
         app.listen(3000, () => {
             console.log("Server running on port 3000");
             this.stockRoute.setStockRoutes(router);
