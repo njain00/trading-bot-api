@@ -21,9 +21,9 @@ export default class StockController {
 
     }
 
-    async postStockAnalysisData(analysisData, response) {
+    async postStockAnalysisData(stockData, response) {
         try {
-            await this.stockService.postStockAnalysisData(analysisData);
+            await this.stockService.postStockAnalysisData(stockData);
 
             response.send('The stock analysis data from Vantage has been posted to the database.');
         } catch (ex) {

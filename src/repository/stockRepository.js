@@ -19,7 +19,7 @@ export default class StockRepository {
         return stocksFromDb;
     }
 
-    async postCandlestickData(analysisData) {
+    async postCandlestickData(stockData) {
         await sql.connect(connectionString);
         var request = new sql.Request();
 
@@ -31,8 +31,8 @@ export default class StockRepository {
         table.columns.add('OpenPrice', sql.Numeric, {nullable: false});
         table.columns.add('ClosePrice', sql.Numeric, {nullable: false});
 
-        _.forEach(analysisData.candlesticks, (candlestick) => {
-            table.rows.add(analysisData.ticker, candlestick.timestamp, candlestick.highPrice, candlestick.lowPrice, candlestick.openPrice, candlestick.closePrice);
+        _.forEach(stockData.Candlesticks, (candlestick) => {
+            table.rows.add(stockData.Ticker, candlestick.Timestamp, candlestick.HighPrice, candlestick.LowPrice, candlestick.OpenPrice, candlestick.ClosePrice);
         });
 
         await request.bulk(table);

@@ -45,15 +45,15 @@ export default class StockService {
         return stockWithUsers;
     }
 
-    async postStockAnalysisData(analysisData) {
+    async postCandlestickData(stockData) {
         try {
-            var ticker = await this.stockRepository.getStockTicker(analysisData.ticker)
+            var ticker = await this.stockRepository.getStockTicker(stockData.Ticker)
             if (undefined == ticker) {
-                await this.stockRepository.postStockMetadata(analysisData.ticker, analysisData.companyName);
+                await this.stockRepository.postStockMetadata(stockData.Ticker, stockData.CompanyName);
             }
-            await this.stockRepository.postCandlestickData(analysisData);
+            await this.stockRepository.postCandlestickData(stockData);
         } catch (ex) {
-            this.logger.error({ticker: analysisData.ticker}, 'Error when looking at the following ticker.');
+            this.logger.error({Ticker: stockData.Ticker}, 'Error when looking at the following ticker.');
             throw ex;
         }
     }
