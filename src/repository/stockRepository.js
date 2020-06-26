@@ -55,7 +55,7 @@ export default class StockRepository {
         await request.query(insertStockMetadataQuery);
     }
 
-    async getStockTicker(ticker) {
+    async isStockInStockAnalysis(ticker) {
         await sql.connect(connectionString);
         var request = new sql.Request();
 
@@ -64,6 +64,10 @@ export default class StockRepository {
 
         var recordset = await request.query(getStockIdQuery);
 
-        return recordset.recordset[0];
+        if (recordset.recordset[0]) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -47,8 +47,7 @@ export default class StockService {
 
     async postCandlestickData(stockData) {
         try {
-            var ticker = await this.stockRepository.getStockTicker(stockData.Ticker)
-            if (undefined == ticker) {
+            if (await this.stockRepository.isStockInStockAnalysis(stockData.Ticker)) {
                 await this.stockRepository.postStockMetadata(stockData);
             }
             await this.stockRepository.postCandlestickData(stockData);
