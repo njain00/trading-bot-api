@@ -10,6 +10,10 @@ export default class StockRoute {
         router.route('/stocks/users')
         .get((request, response) => 
         this.stockApiController.getStockWithUsers(request, response));
+
+        router.route('/stocks/analysis-data')
+        .post((request, response) =>
+        this.stockApiController.postCandlestickData(request.body, response));
     }
 
 }

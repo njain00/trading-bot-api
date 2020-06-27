@@ -18,21 +18,21 @@ export default class StockService {
         _.forEach(stocksFromDb, (stock) => {
             try
             {
-                // JSON Output: [ticker: '', companyName: '', users: []]
-                var indexValue = _.findIndex(stockWithUsers, {ticker : stock.Ticker});
+                // JSON Output: [Ticker: '', CompanyName: '', Users: []]
+                var indexValue = _.findIndex(stockWithUsers, {Ticker : stock.Ticker});
                 var user = {};
-                user["firstName"] = stock.FirstName;
-                user["lastName"] = stock.LastName;
-                user["emailAddress"] = stock.EmailAddress;
+                user["FirstName"] = stock.FirstName;
+                user["LastName"] = stock.LastName;
+                user["EmailAddress"] = stock.EmailAddress;
                 if (indexValue != -1)
                 {
-                    stockWithUsers[indexValue]["users"].push(user);
+                    stockWithUsers[indexValue]["Users"].push(user);
                 }
                 else
                 {
-                    stockWithUsers.push({"ticker": stock.Ticker
-                                        ,"companyName": stock.CompanyName
-                                        ,"users": [user]});
+                    stockWithUsers.push({"Ticker": stock.Ticker
+                                        ,"CompanyName": stock.CompanyName
+                                        ,"Users": [user]});
                 }
             }
             catch (ex)
@@ -43,6 +43,18 @@ export default class StockService {
         });
 
         return stockWithUsers;
+    }
+
+    async postCandlestickData(stockData) {
+        try {
+            if (!(await this.stockRepository.isStockInStockAnalysis(stockData.Ticker))) {
+                await this.stockRepository.postStockMetadata(stockData);
+            }
+            await this.stockRepository.postCandlestickData(stockData);
+        } catch (ex) {
+            this.logger.error({Ticker: stockData.Ticker}, ex);
+            throw ex;
+        }
     }
     
 }
