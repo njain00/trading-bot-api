@@ -28,7 +28,7 @@ export default class StockController {
             response.status(201).send('The candlestick data from Vantage has been posted to the database.');
         } catch (ex) {
             this.logger.error(ex);
-            response.status(500).send({ error: `Error when posting candlestick data to database. The error is as follows: ${ex}` });
+            response.status(500).send({ error: `Error when posting candlestick data to database.` });
         }
     }
 }
