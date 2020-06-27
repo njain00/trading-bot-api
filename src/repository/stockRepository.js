@@ -26,10 +26,10 @@ export default class StockRepository {
         var table = new sql.Table("Candlestick");
         table.columns.add('Ticker', sql.VarChar(4), {nullable: false});
         table.columns.add('Timestamp', sql.DateTime2, {nullable: false});
-        table.columns.add('HighPrice', sql.Numeric, {nullable: false});
-        table.columns.add('LowPrice', sql.Numeric, {nullable: false});
-        table.columns.add('OpenPrice', sql.Numeric, {nullable: false});
-        table.columns.add('ClosePrice', sql.Numeric, {nullable: false});
+        table.columns.add('HighPrice', sql.Numeric(7,2), {nullable: false});
+        table.columns.add('LowPrice', sql.Numeric(7,2), {nullable: false});
+        table.columns.add('OpenPrice', sql.Numeric(7,2), {nullable: false});
+        table.columns.add('ClosePrice', sql.Numeric(7,2), {nullable: false});
 
         _.forEach(stockData.Candlesticks, (candlestick) => {
             table.rows.add(
