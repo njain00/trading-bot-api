@@ -4,6 +4,7 @@ import { getLogger } from './pinoLogger.js'
 import StockApiController from '../api/controllers/stockController.js'
 import StockService from '../service/stockService.js';
 import StockRoute from '../api/routes/stockRoute.js';
+import CandlestickRoute from '../api/routes/candlestickRoute.js'
 
 export default class diConfig {
 
@@ -24,7 +25,8 @@ export default class diConfig {
             logger: awilix.asValue(getLogger()),
             stockService: awilix.asClass(StockService),
             stockApiController: awilix.asClass(StockApiController),
-            stockRoute: awilix.asClass(StockRoute)
+            stockRoute: awilix.asClass(StockRoute),
+            candlestickRoute: awilix.asClass(CandlestickRoute)
         })
     }
 }

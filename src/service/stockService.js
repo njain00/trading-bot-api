@@ -56,5 +56,10 @@ export default class StockService {
             throw ex;
         }
     }
+
+    async postCandlestickAnalysis(candlestickAnalysis)
+    {
+        await this.stockRepository.postCandlestickAnalysis(candlestickAnalysis);
+    }
     
 }

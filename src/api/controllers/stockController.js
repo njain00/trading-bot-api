@@ -28,7 +28,20 @@ export default class StockController {
             response.status(201).send('The candlestick data from Vantage has been posted to the database.');
         } catch (ex) {
             this.logger.error(ex);
-            response.status(500).send({ error: `Error when posting candlestick data to database.` });
+            response.status(500).send({ error: 'Error when posting candlestick data to database.' });
+        }
+    }
+
+    async postCandlestickAnalysis(analysis, response) {
+        try
+        {
+            await this.stockService.postCandlestickAnalysis(analysis);
+            response.status(201).send("Request processed successfully");
+        }
+        catch (ex)
+        {
+            this.logger.error(ex);
+            response.status(500).send({ error: 'Internal error when posting analysis'});
         }
     }
 }
