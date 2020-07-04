@@ -2,14 +2,14 @@
 
 export default class CandlestickRoute {
 
-    constructor({ stockApiController }) {
-        this.stockApiController = stockApiController
+    constructor({ candlestickController }) {
+        this.candlestickController = candlestickController
     }
 
     setCandlestickRoutes(router) {
         router.route('/candlestick/analysis')
         .post((request, response) =>
-        this.stockApiController.postCandlestickAnalysis(request.body, response));
+        this.candlestickController.postCandlestickAnalysis(request.body, response));
     }
 
 }
