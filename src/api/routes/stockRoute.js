@@ -14,10 +14,6 @@ export default class StockRoute {
         router.route('/stocks/candlesticks')
         .post((request, response) =>
         this.stockApiController.postCandlestickData(request.body, response));
-
-        router.route('/stocks/candlestick-analysis')
-        .post((request, response) =>
-        this.stockApiController.postCandlestickAnalysis(request.body, response));
     }
 
 }
