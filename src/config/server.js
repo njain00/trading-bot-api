@@ -9,6 +9,7 @@ export default class Server {
     constructor(container)
     {
         this.stockRoute = container.resolve('stockRoute')
+        this.candlestickRoute = container.resolve('candlestickRoute');
     }
 
     startup() {
@@ -21,6 +22,7 @@ export default class Server {
         app.listen(3000, () => {
             console.log("Server running on port 3000");
             this.stockRoute.setStockRoutes(router);
+            this.candlestickRoute.setCandlestickRoutes(router);
     });
     } 
 }
