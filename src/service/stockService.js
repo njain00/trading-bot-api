@@ -71,8 +71,13 @@ export default class StockService {
         }
     }
 
-    candlestickComparator(obj1, obj2) {
-        return obj1.Timestamp !== obj2.Timestamp;
+    candlestickComparator(candlestick1, candlestick2) {
+        var candlestickTime1 = candlestick1.Timestamp.getTime();
+        var candlestickTime2 = candlestick2.Timestamp.getTime();
+
+        var isDateTheSame = candlestickTime1 === candlestickTime2;
+        
+        return isDateTheSame;
     }
 
     convertStringToDate(candlesticks) {
