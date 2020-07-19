@@ -49,12 +49,39 @@ export default class StockService {
         try {
             if (!(await this.stockRepository.isStockInStockAnalysis(stockData.Ticker))) {
                 await this.stockRepository.postStockMetadata(stockData);
+                await this.stockRepository.postCandlestickData(stockData);            
             }
-            await this.stockRepository.postCandlestickData(stockData);
+            else
+            {
+                stockData.Candlesticks = this.convertStringToDate(stockData.Candlesticks);
+
+                var existingCandlesticks = await this.stockRepository.getCandlestickData(stockData.Ticker);
+
+                var newCandlestickData = _.differenceWith(stockData.Candlesticks, existingCandlesticks, this.candlestickComparator);
+
+                if (newCandlestickData.length > 0)
+                {
+                    stockData.Candlesticks = newCandlestickData;
+                    this.stockRepository.postCandlestickData(stockData);
+                }
+            }
         } catch (ex) {
             this.logger.error({Ticker: stockData.Ticker}, ex);
             throw ex;
         }
+    }
+
+    candlestickComparator(obj1, obj2) {
+        return obj1.Timestamp !== obj2.Timestamp;
+    }
+
+    convertStringToDate(candlesticks) {
+        for (var i = 0; i < candlesticks.length; i++)
+        {
+            candlesticks[i].Timestamp = new Date(candlesticks[i].Timestamp);
+        }
+
+        return candlesticks;
     }
     
 }

@@ -70,4 +70,16 @@ export default class StockRepository {
 
         return false;
     }
+
+    async getCandlestickData(ticker) {
+        await sql.connect(connectionString);
+        var request = new sql.Request();
+
+        request.input('ticker', ticker);
+        var query = 'SELECT Ticker, [Timestamp] FROM Candlestick WHERE Ticker = @ticker';
+
+        var recordset = await request.query(query);
+
+        return recordset.recordset;
+    }
 }
